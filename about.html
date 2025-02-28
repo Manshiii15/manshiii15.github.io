@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Fallback; use custom font for a professional look */
+            background-color: #f5f5f5; /* Light grey background for contrast with teal */
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Full-Screen Grid Background (subtle, professional touch) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to right, rgba(30, 141, 142, 0.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(30, 141, 142, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-img-hero {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 60% / 60%; /* Oval shape */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 5px solid #1E8D8E;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: zoomIn 1.5s ease-out forwards 0.5s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img-hero:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(30, 141, 142, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: bold;
+            color: #1E8D8E; /* Teal for name */
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: diveIn 1.5s ease-out forwards 1s;
+        }
+
+        .hero p.job-role {
+            font-size: 24px;
+            color: #1E8D8E;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: diveIn 1.5s ease-out forwards 1.5s;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two equal columns for info boxes */
+            gap: 60px; /* Balanced gap for symmetry and attractiveness */
+            padding: 80px 0;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: -50px; /* Slight overlap for seamless transition */
+            z-index: 1;
+            position: relative;
+        }
+
+        .left-column, .right-column {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Center-align for symmetry */
+        }
+
+        .left-column h2, .right-column h2 {
+            font-size: 32px; /* Larger, striking headings */
+            color: #1E8D8E;
+            margin-bottom: 30px;
+            text-transform: uppercase; /* For a modern, bold look */
+            letter-spacing: 2px;
+            opacity: 0;
+        }
+
+        .left-column h2 { animation: slideInLeft 1.5s ease-out forwards 2s; }
+        .right-column h2 { animation: slideInRight 1.5s ease-out forwards 2s; }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            width: 100%; /* Full width for structured appearance */
+            max-width: 400px; /* Slightly wider for balanced look */
+            opacity: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .left-column .card { animation: slideInLeft 1.5s ease-out forwards 2.5s; }
+        .right-column .card { animation: slideInRight 1.5s ease-out forwards 2.5s; }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #1E8D8E;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #1E8D8E;
+            color: white;
+            border-radius: 20px;
+            margin-top: 80px;
+            animation: fadeIn 1.5s ease-out 3s;
+        }
+
+        .contact a {
+            color: white;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .contact a:hover {
+            color: #f5f5f5;
+        }
+
+        .iframe-container {
+            position: absolute; /* Changed from relative to absolute */
+            top: 20px;
+            left: -130px;
+            width: 90px;
+            height: 90px;
+            transition: all 0.3s ease-in-out;
+            z-index: 20; /* Higher than .item to stay above */
+        }
+
+        .iframe-container.expanded {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border: none;
+        }
+
+        .iframe1 {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #clickOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 30; /* Higher than iframe to capture clicks */
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes diveIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                height: 60vh;
+                padding: 40px 0;
+            }
+
+            .profile-img-hero {
+                width: 200px;
+                height: 200px;
+            }
+
+            .hero h1 { font-size: 48px; }
+            .hero p.job-role { font-size: 18px; }
+
+            .content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 30px;
+                margin-top: 0;
+            }
+
+            .left-column, .right-column {
+                padding: 10px;
+                align-items: center;
+            }
+
+            .card {
+                margin-bottom: 15px;
+                max-width: 100%;
+            }
+
+            .contact {
+                margin-top: 30px;
+                padding: 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="iframe-container" id="iframeContainer">
+            <div id="clickOverlay" onclick="expandIframe()"></div>
+            <iframe class="iframe1" id="myIframe" src="nav2.png"></iframe>
+            </div>
+        <div class="hero">
+            <img src="myimage.jpg" alt="[Your Full Name]" class="profile-img-hero">
+            <h1>Manshi Singhi</h1>
+            <p class="job-role">4th-Year Computer Science and Engineering Student <br> Data Science Specialist, Android Developer, & UI/UX Designer</p>
+        </div>
+
+        <div class="content">
+            <div class="left-column">
+                <h2>Technical Expertise</h2>
+                <div class="card">
+                    <p class="card-title">Android & AI Mastery</p>
+                    <p>I am an experienced Android developer with a strong specialization in data and AI integration. My expertise extends across technologies like Firebase, AI models, and Android Studio, ensuring seamless and efficient implementation of complex applications.</p>
+                </div>
+
+                <div class="card">
+                    <p class="card-title">Data Science Proficiency</p>
+                    <p>Beyond Android development, I have a deep passion for data science and Python. I am highly proficient in Python and its vast ecosystem of libraries. Whether it’s building predictive models, performing in-depth data analysis, or optimizing business strategies with AI, I thrive on turning raw data into meaningful insights that drive profitability. From data preprocessing to machine learning deployment, I handle it all with precision and efficiency.</div>
+            </div>
+            <div class="right-column">
+                <h2>Creative Innovation</h2>
+                
+                <div class="card">
+                    <p class="card-title">UI/UX Design Brilliance</p>
+                    <p>I have a keen eye for design, creating visually appealing and engaging UI/UX designs for websites and mobile apps using Figma. My mastery of Figma allows me to craft intricate animations effortlessly, bringing ideas to life with creativity and precision.</p>
+                </div>
+                <div class="card">
+                    <p class="card-title">Client Success</p>
+                    <p>With a growing list of satisfied clients, I have successfully developed real-time, fully functional Android applications based on solid business models. My ability to merge technical expertise with aesthetic design ensures high-quality, user-centric solutions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact">
+            <p>If you're looking for a skilled developer who can bring both technical efficiency and design innovation to your project, I'd love to collaborate! Explore my portfolio projects and reach out to me at <a href="mailto:manshisinghi.work@gmail.com">manshisinghi.work@gmail.com</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        // Ensure images load
+        document.addEventListener('DOMContentLoaded', () => {
+            const imgHero = document.querySelector('.profile-img-hero');
+            const imgContent = document.querySelector('.profile-img'); // Not used in this version, but kept for consistency
+            if (imgHero.complete) {
+                imgHero.classList.add('loaded');
+            } else {
+                imgHero.addEventListener('load', () => imgHero.classList.add('loaded'));
+            }
+        });
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let container = document.getElementById("iframeContainer");
+        let iframe = document.getElementById("myIframe");
+        let overlay = document.getElementById("clickOverlay");
+
+        function expandIframe() {
+            container.classList.add("expanded");
+            iframe.src = "navigation/index.html";  // Load full content on expand
+            overlay.remove();
+        }
+
+        // Intersection Observer for handling visibility
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!container.classList.contains("expanded")) {
+                    if (entry.isIntersecting) {
+                        iframe.src = "nav2.png"; // Default image when in view but not expanded
+                    } else {
+                        iframe.src = ""; // Remove src when out of view (optional)
+                    }
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% is visible
+
+        observer.observe(iframe);
+
+        // Attach expand function to overlay
+        if (overlay) {
+            overlay.addEventListener("click", expandIframe);
+        }
+    });
+</script>
+    
+</body>
+</html>

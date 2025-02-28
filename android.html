@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Studio Projects</title>
+    <style>
+        :root {
+            --primary-color: #1E8D8E;
+            --primary-dark: #166B6C;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: var(--primary-color);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.5s ease;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 30px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: cardEntrance 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .card:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: var(--primary-color);
+            line-height: 1.4;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 141, 142, 0.3);
+
+        }
+
+        .photos-container {
+            position: relative;
+            overflow: hidden;
+            margin: 15px 0;
+            border-radius: 12px;
+        }
+
+        .photos {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px 0;
+            scrollbar-width: none;
+        }
+
+        .photos::-webkit-scrollbar {
+            display: none;
+        }
+
+        .photo {
+            width: 97%;
+
+
+            max-width: 550px;
+            height: 350px;
+            border-radius: 8px;
+
+            object-fit: contain;
+            object-position: center center;
+            border: 2px solid rgba(30, 141, 142, 0.2);
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30, 141, 142, 0.9);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .photos-container:hover .scroll-btn {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-left {
+            left: 15px;
+        }
+
+        .scroll-right {
+            right: 15px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            position: relative;
+            max-width: 650px;
+
+
+            width: 90%;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            /* Ensures the video takes full width */
+            height: auto;
+            /* Maintains aspect ratio */
+            max-height: 80vh;
+            /* Prevents overflow */
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            background: var(--primary-dark);
+            transform: rotate(90deg);
+
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes cardEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .iframe-container {
+            position: absolute; /* Changed from relative to absolute */
+            top: 10px;
+            left: 10px;
+            width: 90px;
+            height: 90px;
+            transition: all 0.3s ease-in-out;
+            z-index: 20; /* Higher than .item to stay above */
+        }
+
+        .iframe-container.expanded {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border: none;
+        }
+
+        .iframe1 {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #clickOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 30; /* Higher than iframe to capture clicks */
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="header">
+        <div class="iframe-container" id="iframeContainer">
+            <div id="clickOverlay" onclick="expandIframe()"></div>
+            <iframe class="iframe1" id="myIframe" src="nav2.png"></iframe>
+            </div>
+
+        
+        
+        Android Studio Projects</div>
+    <div class="container">
+        <div class="grid" id="projects"></div>
+    </div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeVideo()">&times;</button>
+            <video id="videoPlayer" controls style="width: 100%; border-radius: 10px;"></video>
+        </div>
+    </div>
+
+    <script>
+        function expandIframe() {
+            let container = document.getElementById("iframeContainer");
+            let iframe = document.getElementById("myIframe");
+            let overlay = document.getElementById("clickOverlay");
+    
+            container.classList.add("expanded");
+            iframe.src = "navigation/index.html";
+            overlay.remove();
+        }
+    </script>
+
+    <script>
+
+        const projectDescriptions = [
+            " Plannify helps you plan unforgettable dates with personalized cafe/restaurant recommendations, thoughtful gift ideas within your budget, and a photographic timeline to capture your memories.","An eye-catching Figma design that brings Nike's iconic sneakers to life with bold layouts, vibrant colors, and a dynamic showcase of style and performance."
+            ];
+        const projects = [
+            { id: 1, title: "Plannify – Your Perfect Date Planner", video: "Media//as1.mp4", photos: ["Media//as1_1.png", "Media//as1_3.png", "Media//as1_4.png","Media//as1_2.png", "Media//as1_5.png", "Media//as1_6.png", "Media//as1_7.png"] }
+             ];
+
+        function loadProjects() {
+            const projectContainer = document.getElementById("projects");
+            projects.forEach((project, index) => {
+                const projectCard = document.createElement("div");
+                projectCard.classList.add("card");
+                projectCard.innerHTML = `
+                    <div class="card-title">${project.title}</div>
+                    <button class="btn" onclick="openVideo('${project.video}')">Watch Video</button>
+                    <div class="photos-container" onmouseover="updateButtons(${index})" onscroll="updateButtons(${index})">
+                        <button class="scroll-btn scroll-left" id="left-btn-${index}" onclick="scrollPhotos(${index}, -1)">&#9664;</button>
+                        <div class="photos" id="photo-container-${index}">
+                            ${project.photos.map(photo => `<img src="${photo}" class="photo">`).join('')}
+                        </div>
+                        <button class="scroll-btn scroll-right" id="right-btn-${index}" onclick="scrollPhotos(${index}, 1)">&#9654;</button>
+                    </div>
+                    <div class="card-description">${projectDescriptions[index]}</div>
+                `;
+                projectContainer.appendChild(projectCard);
+            });
+        }
+
+        function openVideo(videoUrl) {
+            document.getElementById("videoPlayer").src = videoUrl;
+            document.getElementById("videoModal").classList.add("active");
+        }
+
+        function closeVideo() {
+            document.getElementById("videoModal").classList.remove("active");
+            document.getElementById("videoPlayer").pause();
+        }
+
+        function scrollPhotos(index, direction) {
+            const container = document.getElementById(`photo-container-${index}`);
+            const scrollAmount = container.children[0].clientWidth + 10;
+            container.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+        }
+
+        function updateButtons(index) {
+            const container = document.getElementById(`photo-container-${index}`);
+            setTimeout(() => {
+                document.getElementById(`left-btn-${index}`).style.visibility = container.scrollLeft > 10 ? "visible" : "hidden";
+                document.getElementById(`right-btn-${index}`).style.visibility = container.scrollLeft + container.clientWidth < container.scrollWidth - 10 ? "visible" : "hidden";
+            }, 200);
+        }
+
+        document.addEventListener("DOMContentLoaded", loadProjects);
+    </script>
+</body>
+
+</html>

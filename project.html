@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        @font-face {
+            font-family: 'BlazeITCItalic';
+            src: url('Blaze ITC Italic.otf') format('truetype');
+            font-style: italic;
+        }
+
+        @font-face {
+            font-family: 'IrishGrover';
+            src: url('IrishGrover-Regular.ttf') format('truetype');
+        }
+
+        .item a:visited {
+            color: inherit;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .item {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eee;
+            transition: all 0.5s ease-in-out;
+            z-index: 1; /* Default z-index for items */
+        }
+
+        .data {
+            top: 0;
+            left: 0;
+            width: 33.33%;
+            height: 100%;
+            border: 2px solid black;
+            box-sizing: border-box;
+            font-family: 'IrishGrover';
+            font-size: 50px;
+        }
+
+        .figma {
+            top: 0%;
+            left: 33.33%;
+            width: 33.33%;
+            height: 100%;
+            border: 2px solid black;
+            box-sizing: border-box;
+            font-family: 'IrishGrover';
+            font-size: 50px;
+        }
+
+        .android {
+            top: 0;
+            left: 66.66%;
+            width: 33.33%;
+            height: 100%;
+            border: 2px solid black;
+            box-sizing: border-box;
+            font-family: 'IrishGrover';
+            font-size: 50px;
+        }
+
+        .data:hover {
+            top: 0;
+            left: 0;
+            width: 60%;
+            height: 100%;
+            background-color: #1E8D8E;
+        }
+
+        .data:hover ~ .figma {
+            top: 0;
+            left: 60%;
+            width: 20%;
+            height: 100%;
+        }
+
+        .data:hover ~ .figma a {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+
+        .data:hover ~ .android {
+            top: 0%;
+            left: 80%;
+            width: 20%;
+            height: 100%;
+        }
+
+        .data:hover ~ .android a {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+
+        .figma:hover {
+            top: 0;
+            left: 20%;
+            width: 60%;
+            height: 100%;
+            background-color: #1E8D8E;
+        }
+
+        .container:has(.figma:hover) .data {
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 100%;
+        }
+
+        .container:has(.figma:hover) .data a {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+
+        .figma:hover ~ .android {
+            top: 0%;
+            left: 80%;
+            width: 20%;
+            height: 100%;
+        }
+
+        .figma:hover ~ .android a {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+
+        .android:hover {
+            top: 0;
+            left: 40%;
+            width: 60%;
+            height: 100%;
+            background-color: #1E8D8E;
+        }
+
+        .container:has(.android:hover) .data {
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 100%;
+        }
+
+        .container:has(.android:hover) .data a {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+
+        .container:has(.android:hover) .figma {
+            top: 0;
+            left: 20%;
+            width: 20%;
+            height: 100%;
+        }
+
+        .container:has(.android:hover) .figma a {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+
+        .iframe-container {
+            position: absolute; /* Changed from relative to absolute */
+            top: 10px;
+            left: 10px;
+            width: 90px;
+            height: 90px;
+            transition: all 0.3s ease-in-out;
+            z-index: 20; /* Higher than .item to stay above */
+        }
+
+        .iframe-container.expanded {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border: none;
+        }
+
+        .iframe1 {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #clickOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 30; /* Higher than iframe to capture clicks */
+            cursor: pointer;
+        }
+
+        .item a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            z-index: 2; /* Above item background */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="iframe-container" id="iframeContainer">
+            <div id="clickOverlay" onclick="expandIframe()"></div>
+            <iframe class="iframe1" id="myIframe" src="nav2.png"></iframe>
+        </div>
+        
+        <div class="item data"><a href="ds.html" style="text-decoration: none;">DATA SCIENCE</a></div>
+        <div class="item figma"><a href="figma.html" style="text-decoration: none;">FIGMA</a></div>
+        <div class="item android"><a href="android.html" style="text-decoration: none;">ANDROID STUDIO</a></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          let container = document.getElementById("iframeContainer");
+          let iframe = document.getElementById("myIframe");
+          let overlay = document.getElementById("clickOverlay");
+  
+          function expandIframe() {
+              container.classList.add("expanded");
+              iframe.src = "navigation/index.html";  // Load full content on expand
+              overlay.remove();
+          }
+  
+          // Intersection Observer for handling visibility
+          const observer = new IntersectionObserver(entries => {
+              entries.forEach(entry => {
+                  if (!container.classList.contains("expanded")) {
+                      if (entry.isIntersecting) {
+                          iframe.src = "nav2.png"; // Default image when in view but not expanded
+                      } else {
+                          iframe.src = ""; // Remove src when out of view (optional)
+                      }
+                  }
+              });
+          }, { threshold: 0.5 }); // Trigger when 50% is visible
+  
+          observer.observe(iframe);
+  
+          // Attach expand function to overlay
+          if (overlay) {
+              overlay.addEventListener("click", expandIframe);
+          }
+      });
+  </script>
+</body>
+</html>
