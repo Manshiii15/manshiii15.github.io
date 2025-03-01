@@ -103,15 +103,19 @@
 
         /* Mobile Styles */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column; /* Change to vertical on mobile */
-                height: auto;
-            }
+            @media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack items vertically */
+        height: 100vh; /* Full height */
+    }
 
-            .item {
-                font-size: 25px; /* Reduce text size */
-                height: 33.33vh;
-            }
+    .item {
+        font-size: 25px; /* Reduce text size */
+        height: 33.33vh; /* Each item takes 1/3rd of the screen */
+        width: 100%; /* Full width */
+    }
+}
+
 
             
         }
