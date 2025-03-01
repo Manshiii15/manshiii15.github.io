@@ -213,8 +213,8 @@
 
         .iframe-container {
             position: absolute; /* Changed from relative to absolute */
-            top: 10px;
-            left: 10px;
+            top: 20px;
+            left: 20px;
             width: 90px;
             height: 90px;
             transition: all 0.3s ease-in-out;
@@ -296,6 +296,13 @@
                 transform: translateY(0);
             }
         }
+        @media screen and (max-width: 768px) {
+    .header {
+        font-size: 20px; /* Reduce font size on smaller screens */
+        padding: 30px; /* Adjust padding for better spacing */
+    }
+}
+
     </style>
 </head>
 
@@ -304,8 +311,7 @@
         
         <div class="iframe-container" id="iframeContainer">
             <div id="clickOverlay" onclick="expandIframe()"></div>
-            <iframe class="iframe1" id="myIframe" src="nav2.png" sandbox="allow-scripts allow-same-origin allow-top-navigation"></iframe>
-            </div>
+            <iframe class="iframe1" id="myIframe" src="nav_small.png"></iframe></div>
             Data Science Projects</div>
     <div class="container">
         <div class="grid" id="projects"></div>
@@ -335,7 +341,7 @@
                 entries.forEach(entry => {
                     if (!container.classList.contains("expanded")) {
                         if (entry.isIntersecting) {
-                            iframe.src = "nav2.png"; // Default image when in view but not expanded
+                            iframe.src = "nav_small.png"; // Default image when in view but not expanded
                         } else {
                             iframe.src = ""; // Remove src when out of view (optional)
                         }
@@ -359,12 +365,13 @@
            "The dashboard offers a detailed analysis of sales performance, profit distribution, and order trends. It categorizes data by product types, states, and payment modes, allowing users to identify which categories or regions are most profitable. It also highlights the ratio of profitable vs. loss-making transactions, helping in decision-making. " ,
            "The pizza sales dashboard provides insights into total orders, sales, and popular pizza categories. It highlights order distribution based on time, showing peak sales periods, and breaks down sales by day of the week. The data helps in understanding customer preferences, optimizing inventory, and improving sales strategies.",
            "The Dairy Farm Analysis provides insights into milk production, livestock health, and farm efficiency. It includes key metrics like milk yield, feed consumption, and animal growth trends. Data visualizations highlight patterns in production cycles, seasonal variations, and profitability. The analysis helps optimize resource usage, improve productivity, and ensure sustainable dairy farming operations."
-             ];
+            ,"IPL Prediction App utilizes the Random Forest algorithm to analyze historical match data and predict game outcomes. It considers factors like team performance, player stats, pitch conditions, and head-to-head records to generate accurate winning probabilities. Users can input match details and receive data-driven predictions along with key insights. With its machine-learning-based approach, the app helps cricket enthusiasts and analysts make informed decisions." ];
         const projects = [
             { id: 1, title: "Sales Data Analysis", video: "Media//ds1.mp4", photos: ["Media//ds1_1.png","Media//ds1_2.png"] },
             { id: 2, title: "Pizza Sales Analysis",video: "Media//ds2.mp4", photos: ["Media//ds2_1.png"] }
             , { id: 3, title: "Dairy Farm Analysis",  video: "Media//ds3.mp4", photos: ["Media//ds3_1.png", "Media//ds3_2.png", "Media//ds3_3.png"] }
-             ];
+            , { id: 4, title: "IPL match predictor",  video: "Media//ds4.mp4", photos: ["Media//ds4_1.png", "Media//ds4_2.png", "Media//ds4_3.png","Media//ds4_4.png", "Media//ds4_5.png", "Media//ds4_5.png"] }
+            ];
 
         function loadProjects() {
             const projectContainer = document.getElementById("projects");

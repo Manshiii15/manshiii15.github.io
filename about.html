@@ -305,7 +305,7 @@
     <div class="container">
         <div class="iframe-container" id="iframeContainer">
             <div id="clickOverlay" onclick="expandIframe()"></div>
-            <iframe class="iframe1" id="myIframe" src="nav2.png"></iframe>
+            <iframe class="iframe1" id="myIframe" src="nav_small.png"></iframe>
             </div>
         <div class="hero">
             <img src="myimage.jpg" alt="[Your Full Name]" class="profile-img-hero">
@@ -374,7 +374,7 @@
             entries.forEach(entry => {
                 if (!container.classList.contains("expanded")) {
                     if (entry.isIntersecting) {
-                        iframe.src = "nav2.png"; // Default image when in view but not expanded
+                        iframe.src = "nav_small.png"; // Default image when in view but not expanded
                     } else {
                         iframe.src = ""; // Remove src when out of view (optional)
                     }

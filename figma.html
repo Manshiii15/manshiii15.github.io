@@ -240,14 +240,17 @@
             transform: rotate(90deg);
 
         }
+
         .iframe-container {
-            position: absolute; /* Changed from relative to absolute */
-            top: 10px;
-            left: 10px;
+            position: absolute;
+            /* Changed from relative to absolute */
+            top: 20px;
+            left: 20px;
             width: 90px;
             height: 90px;
             transition: all 0.3s ease-in-out;
-            z-index: 20; /* Higher than .item to stay above */
+            z-index: 20;
+            /* Higher than .item to stay above */
         }
 
         .iframe-container.expanded {
@@ -273,7 +276,8 @@
             width: 100%;
             height: 100%;
             background: transparent;
-            z-index: 30; /* Higher than iframe to capture clicks */
+            z-index: 30;
+            /* Higher than iframe to capture clicks */
             cursor: pointer;
         }
 
@@ -295,18 +299,28 @@
                 transform: translateY(0);
             }
         }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                font-size: 20px;
+                /* Reduce font size on smaller screens */
+                padding: 30px;
+                /* Adjust padding for better spacing */
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
-        
+
         <div class="iframe-container" id="iframeContainer">
             <div id="clickOverlay" onclick="expandIframe()"></div>
-            <iframe class="iframe1" id="myIframe" src="nav2.png"></iframe>
+            <iframe class="iframe1" id="myIframe" src="nav_small.png"></iframe>
         </div>
-        
-        Figma Projects</div>
+
+        Figma Projects
+    </div>
     <div class="container">
         <div class="grid" id="projects"></div>
     </div>
@@ -323,28 +337,28 @@
             let container = document.getElementById("iframeContainer");
             let iframe = document.getElementById("myIframe");
             let overlay = document.getElementById("clickOverlay");
-    
+
             function expandIframe() {
                 container.classList.add("expanded");
                 iframe.src = "navigation/index.html";  // Load full content on expand
                 overlay.remove();
             }
-    
+
             // Intersection Observer for handling visibility
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (!container.classList.contains("expanded")) {
                         if (entry.isIntersecting) {
-                            iframe.src = "nav2.png"; // Default image when in view but not expanded
+                            iframe.src = "nav_small.png"; // Default image when in view but not expanded
                         } else {
                             iframe.src = ""; // Remove src when out of view (optional)
                         }
                     }
                 });
             }, { threshold: 0.5 }); // Trigger when 50% is visible
-    
+
             observer.observe(iframe);
-    
+
             // Attach expand function to overlay
             if (overlay) {
                 overlay.addEventListener("click", expandIframe);
@@ -363,7 +377,7 @@
         const projects = [
             { id: 1, title: "Pizza Delight", video: "Media//fig2.mp4", photos: ["Media//fig2_1.png", "Media//fig2_2.png", "Media//fig2_3.png", "Media//fig2_4.png"] },
             { id: 2, title: "Nike Sneaker Showcase", video: "Media//fig3.mp4", photos: ["Media//fig3_1.png", "Media//fig3_2.png", "Media//fig3_3.png", "Media//fig3_4.png", "Media//fig3_5.png"] }
-            , { id: 3, title: "Interactive Zoom Effect UI Design",  video: "Media//fig4.mp4", photos: ["Media//fig4_1.png", "Media//fig4_2.png", "Media//fig4_3.png"] }
+            , { id: 3, title: "Interactive Zoom Effect UI Design", video: "Media//fig4.mp4", photos: ["Media//fig4_1.png", "Media//fig4_2.png", "Media//fig4_3.png"] }
             , { id: 4, title: "Movie Ticket Booking UI", video: "Media//fig1.mp4", photos: ["Media//fig1_1.png", "Media//fig1_2.png", "Media//fig1_3.png", "Media//fig1_4.png"] }
         ];
 

@@ -262,8 +262,8 @@
 
         .iframe-container {
             position: absolute; /* Changed from relative to absolute */
-            top: 10px;
-            left: 10px;
+            top: 20px;
+            left: 20px;
             width: 90px;
             height: 90px;
             transition: all 0.3s ease-in-out;
@@ -296,6 +296,14 @@
             z-index: 30; /* Higher than iframe to capture clicks */
             cursor: pointer;
         }
+        @media screen and (max-width: 768px) {
+            .header {
+                font-size: 20px;
+                /* Reduce font size on smaller screens */
+                padding: 30px;
+                /* Adjust padding for better spacing */
+            }
+        }
     </style>
 </head>
 
@@ -304,7 +312,7 @@
     <div class="header">
         <div class="iframe-container" id="iframeContainer">
             <div id="clickOverlay" onclick="expandIframe()"></div>
-            <iframe class="iframe1" id="myIframe" src="nav2.png"></iframe>
+            <iframe class="iframe1" id="myIframe" src="nav_small.png"></iframe>
             </div>
 
         
@@ -322,24 +330,49 @@
     </div>
 
     <script>
-        function expandIframe() {
+        document.addEventListener("DOMContentLoaded", function () {
             let container = document.getElementById("iframeContainer");
             let iframe = document.getElementById("myIframe");
             let overlay = document.getElementById("clickOverlay");
     
-            container.classList.add("expanded");
-            iframe.src = "navigation/index.html";
-            overlay.remove();
-        }
+            function expandIframe() {
+                container.classList.add("expanded");
+                iframe.src = "navigation/index.html";  // Load full content on expand
+                overlay.remove();
+            }
+    
+            // Intersection Observer for handling visibility
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!container.classList.contains("expanded")) {
+                        if (entry.isIntersecting) {
+                            iframe.src = "nav_small.png"; // Default image when in view but not expanded
+                        } else {
+                            iframe.src = ""; // Remove src when out of view (optional)
+                        }
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% is visible
+    
+            observer.observe(iframe);
+    
+            // Attach expand function to overlay
+            if (overlay) {
+                overlay.addEventListener("click", expandIframe);
+            }
+        });
     </script>
 
     <script>
 
         const projectDescriptions = [
-            " Plannify helps you plan unforgettable dates with personalized cafe/restaurant recommendations, thoughtful gift ideas within your budget, and a photographic timeline to capture your memories.","An eye-catching Figma design that brings Nike's iconic sneakers to life with bold layouts, vibrant colors, and a dynamic showcase of style and performance."
-            ];
+            " Plannify helps you plan unforgettable dates with personalized cafe/restaurant recommendations, thoughtful gift ideas within your budget, and a photographic timeline to capture your memories."
+            ,"Billing App simplifies sales management with essential features like bill creation, product addition, and editing item details. Users can create new products, modify bills by adding or removing items, apply discounts, and track total sales date-wise. ",
+        "Fit Watcher is a workout tracking app that helps users plan and monitor their fitness routines. It allows users to add workouts, track repetitions, and follow a structured exercise schedule. Perfect for staying consistent and achieving fitness goals! "];
         const projects = [
             { id: 1, title: "Plannify – Your Perfect Date Planner", video: "Media//as1.mp4", photos: ["Media//as1_1.png", "Media//as1_3.png", "Media//as1_4.png","Media//as1_2.png", "Media//as1_5.png", "Media//as1_6.png", "Media//as1_7.png"] }
+             ,{ id: 2, title: "Billing App", video: "Media//as2.mp4", photos: ["Media//as2_1.jpg", "Media//as2_2.jpg", "Media//as2_3.jpg"] }
+             ,{ id: 3, title: "FitWatcher - Your Exercise Tracker", video: "Media//as3.mp4", photos: ["Media//as3_1.jpeg", "Media//as3_2.jpeg", "Media//as3_3.jpeg","Media//as3_4.jpeg"] }
              ];
 
         function loadProjects() {
