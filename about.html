@@ -80,12 +80,15 @@
             animation: diveIn 1.5s ease-out forwards 1s;
         }
 
-        .hero p.job-role {
+        /* Typewriter text styling */
+        .typewriter {
             font-size: 24px;
+            border-right: 2px solid #1E8D8E; /* Match the teal color from your design */
+            white-space: nowrap;
+            overflow: hidden;
+            letter-spacing: 0.15em;
             color: #1E8D8E;
-            margin-bottom: 40px;
-            opacity: 0;
-            animation: diveIn 1.5s ease-out forwards 1.5s;
+            z-index: 1;
         }
 
         .content {
@@ -281,7 +284,9 @@
                 margin-top: 240px;
                 font-size: 48px; 
             }
-            .hero p.job-role { font-size: 18px; }
+            .typewriter { /* Adjust typewriter for mobile */
+                font-size: 18px;
+            }
 
             .content {
                 grid-template-columns: 1fr;
@@ -323,7 +328,7 @@
         <div class="hero">
             <img src="myimage.png" alt="[Your Full Name]" class="profile-img-hero">
             <h1>Manshi Singhi</h1>
-            <p class="job-role">4th-Year Computer Science and Engineering Student <br> Data Science Specialist, Android Developer, & UI/UX Designer</p>
+            <div class="typewriter"></div> <!-- Replaced p.job-role with typewriter div -->
         </div>
 
         <div class="content">
@@ -399,6 +404,43 @@
                 closeButton.addEventListener('click', collapseIframe);
             }
         });
+
+        // --- Typewriter Effect ---
+        function typeWriter(element, messages) {
+            let index = 0, charIndex = 0, isDeleting = false;
+
+            function type() {
+                let currentMessage = messages[index];
+                element.textContent = currentMessage.substring(0, charIndex);
+
+                if (!isDeleting) {
+                    charIndex++; // Typing
+                } else {
+                    charIndex--; // Deleting
+                }
+
+                if (!isDeleting && charIndex === currentMessage.length) {
+                    setTimeout(() => { isDeleting = true; type(); }, 1400); // Pause when full sentence is shown
+                    return;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    index = (index + 1) % messages.length;
+                }
+
+                setTimeout(type, isDeleting ? 30 : 80);
+            }
+            type();
+        }
+
+        const typewriterElement = document.querySelector('.typewriter');
+        const messages = [
+            '4th-Year Computer Science Student ',
+            '💡 Data Science Specialist ',
+            '📱 Android Developer ',
+            '🎨 UI/UX Designer ',
+            '🤝 Let’s collaborate to create impactful, user-centric applications! '
+        ];
+        typeWriter(typewriterElement, messages);
     </script>
 </body>
 </html>
