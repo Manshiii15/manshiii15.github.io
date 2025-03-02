@@ -47,14 +47,14 @@ body {
   align-items: center;
   justify-content: space-between;
   z-index: 1;
-  
-  transition: all 0.2s ease-in-out;
+  opacity: 0; /* Hide initially */
+  visibility: hidden; /* Hide initially */
+  transition: all 0.5s ease-in-out;
 }
 
 .nav-toggle::after {
   position: absolute;
   top: -40px;
-  
   content: "Click me!";
   color: white;
   line-height: 0;
@@ -81,7 +81,7 @@ body {
 #nav-toggle:checked ~ .nav-close {
   opacity: 1;
   transition: all 0.3s ease-in-out;
-  transition-delay: 5.5s;
+  transition-delay: 4s; /* Adjusted for 0.5s black screen */
 }
 
 .nav-toggle:hover {
@@ -149,16 +149,15 @@ body {
 }
 
 .nav-toggle > figure:nth-child(2) {
-  
-  background: #3A606E ;
+  background: #3A606E;
 }
 
 .nav-toggle > figure:nth-child(3) {
-  background: #F5F5DC ;
+  background: #F5F5DC;
 }
 
 .nav-toggle > figure:nth-child(4) {
-  background: #3A606E ;
+  background: #3A606E;
 }
 
 .nav-toggle > label,
@@ -256,16 +255,15 @@ nav {
   width: 100%;
   height: 100%;
   background-color: #2E3B40;
-  
   z-index: 3;
 }
 
 #nav-toggle:checked ~ nav {
   bottom: 0;
   transition: all 1s ease-in-out;
-  transition-delay: 2s;
+  transition-delay: 1s; /* Adjusted for 0.5s black screen */
   animation: mask 1s ease-in-out 1;
-  animation-delay: 2s;
+  animation-delay: 1s; /* Adjusted for 0.5s black screen */
   animation-fill-mode: forwards;
 }
 
@@ -323,8 +321,7 @@ nav > ul > li > a {
   padding: 20px;
   z-index: 1;
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
@@ -342,7 +339,7 @@ nav > ul > li::after {
   width: 100%;
   z-index: -1;
   content: "";
-  background: #8b9b9b ;
+  background: #8b9b9b;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
@@ -366,35 +363,35 @@ nav > ul > li > a:hover {
 
 nav > ul > li:nth-child(1) {
   transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0s !important;
-  transition-delay: 2s !important;
+  transition-delay: 1s !important; /* Adjusted for 0.5s black screen */
   left: 0;
   background: #16696A;
 }
 
 nav > ul > li:nth-child(2) {
   transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0s !important;
-  transition-delay: 2.3s !important;
+  transition-delay: 1.3s !important; /* Adjusted for 0.5s black screen */
   left: 20%;
   background: #2BA5A6;
 }
 
 nav > ul > li:nth-child(3) {
   transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0s !important;
-  transition-delay: 2.6s !important;
+  transition-delay: 1.6s !important; /* Adjusted for 0.5s black screen */
   left: 40%;
   background: #54B6B6;
 }
 
 nav > ul > li:nth-child(4) {
   transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0s !important;
-  transition-delay: 2.9s !important;
+  transition-delay: 1.9s !important; /* Adjusted for 0.5s black screen */
   left: 60%;
   background: #87CDCD;
 }
 
 nav > ul > li:nth-child(5) {
   transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0s !important;
-  transition-delay: 3.2s !important;
+  transition-delay: 2.2s !important; /* Adjusted for 0.5s black screen */
   left: 80%;
   background: #C6EAEA;
 }
@@ -434,6 +431,35 @@ nav > ul > li:nth-child(5) {
     bottom: 0% !important;
   }
 }
+
+/* Black Slide Animation */
+.black-slide {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  z-index: 100;
+  animation: slideOut 0.5s ease-in-out forwards; /* Reduced to 0.5 seconds */
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+/* Show toggle after black slide */
+body.loaded .nav-toggle {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease-in-out 1s; /* Adjusted delay for 0.5s black screen */
+}
 </style>
 <head>
 
@@ -443,45 +469,25 @@ nav > ul > li:nth-child(5) {
 
 <!---- Visual Open Menu Toggle ---->
 <a href="javascript:void(0);" class="nav-toggle">
-
   <label for="nav-toggle"></label>
-
   <figure></figure>
   <figure></figure>
   <figure></figure>
-
 </a>
 <!---- END Visual Open Menu Toggle ---->
 
 <!---- Visual Close Menu Toggle ----->
 <a href="javascript:void(0);" class="nav-close">
-
   <label for="nav-close"></label>
-
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
     <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
     <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
   </svg>
-
 </a>
 <!---- END Visual Close Menu Toggle ---->
 
 <!---- Logo Draw Animation, during transition ---->
 <div class="logo-draw">
-
-  <!--- SVG Stroke / Outline Logo ---->
-  
-
-  <!--- SVG Solid / Filled Logo ---->
-  <!-- <svg viewBox="0 0 960 300" xmlns="http://www.w3.org/2000/svg">
-    <symbol id="s-text">
-      <text text-anchor="middle" x="50%" y="80%">Manshi</text>
-    </symbol>
-    <g class="g-ants">
-      <use xlink:href="#s-text" class="text-copy"></use>
-    </g>
-  </svg> -->
-  
   <style>
     svg {
       width: 100%;
@@ -505,39 +511,40 @@ nav > ul > li:nth-child(5) {
       100% { stroke-dashoffset: 0; }
     }
   </style>
-
 </div>
 <!----- END End Logo Draw Animation ---->
 
 <!----- Main Navigation ---->
 <nav>
-
   <ul>
-
-    <li><a href="../index.html" target="_top" title="Home" >Home</a></li>
-
-    <li><a href="../about.html"target="_top" title="About Me" >About Me</a></li>
-
-    <li><a href="../project.html"  target="_top" title="Projects" >Projects</a></li>
-
-    <li><a href="../resume.html" target="_top" title="Resume" >Resume</a></li>
-
-    <li><a href="../contact.html" target="_top" title="Contact" >Contact</a></li>
-
+    <li><a href="../index.html" target="_top" title="Home">Home</a></li>
+    <li><a href="../about.html" target="_top" title="About Me">About Me</a></li>
+    <li><a href="../project.html" target="_top" title="Projects">Projects</a></li>
+    <li><a href="../resume.html" target="_top" title="Resume">Resume</a></li>
+    <li><a href="../contact.html" target="_top" title="Contact">Contact</a></li>
   </ul>
-
-
-
 </nav>
+<!---- END Main Navigation ---->
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    // Add black slide element
+    const blackSlide = document.createElement('div');
+    blackSlide.className = 'black-slide';
+    document.body.appendChild(blackSlide);
+
+    // Auto-trigger navigation animation after black slide (0.5s)
+    setTimeout(() => {
+      document.getElementById('nav-toggle').checked = true; // Simulate click to start animation
+      document.body.classList.add('loaded'); // Show toggle after slide
+    }, 500); // Reduced to 0.5 seconds to match black slide animation
+
+    // Close navigation and redirect to homepage
     document.querySelector(".nav-close label").addEventListener("click", function () {
+      document.getElementById('nav-toggle').checked = false; // Uncheck to close navigation
       window.open("../index.html", "_top"); // Change this to your homepage URL
-    
     });
   });
 </script>
-<!---- END Main Navigation ---->
 </head>
 </html>
