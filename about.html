@@ -12,15 +12,15 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif; /* Fallback; use custom font for a professional look */
-            background-color: #f5f5f5; /* Light grey background for contrast with teal */
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* Full-Screen Grid Background (subtle, professional touch) */
+        /* Full-Screen Grid Background */
         body::before {
             content: '';
             position: fixed;
@@ -57,7 +57,7 @@
             width: 300px;
             height: 300px;
             object-fit: cover;
-            border-radius: 60% / 60%; /* Oval shape */
+            border-radius: 60% / 60%;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             border: 5px solid #1E8D8E;
             margin-bottom: 40px;
@@ -74,7 +74,7 @@
         .hero h1 {
             font-size: 72px;
             font-weight: bold;
-            color: #1E8D8E; /* Teal for name */
+            color: #1E8D8E;
             margin-bottom: 20px;
             opacity: 0;
             animation: diveIn 1.5s ease-out forwards 1s;
@@ -90,13 +90,13 @@
 
         .content {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Two equal columns for info boxes */
-            gap: 60px; /* Balanced gap for symmetry and attractiveness */
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
             padding: 80px 0;
             background-color: white;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-top: -50px; /* Slight overlap for seamless transition */
+            margin-top: -50px;
             z-index: 1;
             position: relative;
         }
@@ -106,14 +106,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center; /* Center-align for symmetry */
+            align-items: center;
         }
 
         .left-column h2, .right-column h2 {
-            font-size: 32px; /* Larger, striking headings */
+            font-size: 32px;
             color: #1E8D8E;
             margin-bottom: 30px;
-            text-transform: uppercase; /* For a modern, bold look */
+            text-transform: uppercase;
             letter-spacing: 2px;
             opacity: 0;
         }
@@ -127,8 +127,8 @@
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            width: 100%; /* Full width for structured appearance */
-            max-width: 400px; /* Slightly wider for balanced look */
+            width: 100%;
+            max-width: 400px;
             opacity: 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -176,13 +176,13 @@
         }
 
         .iframe-container {
-            position: absolute; /* Changed from relative to absolute */
+            position: fixed; /* Fixed positioning for visibility */
             top: 20px;
-            left: -130px;
+            left: 20px; /* Positioned in top-right corner */
             width: 90px;
             height: 90px;
             transition: all 0.3s ease-in-out;
-            z-index: 20; /* Higher than .item to stay above */
+            z-index: 20;
         }
 
         .iframe-container.expanded {
@@ -208,7 +208,7 @@
             width: 100%;
             height: 100%;
             background: transparent;
-            z-index: 30; /* Higher than iframe to capture clicks */
+            z-index: 30;
             cursor: pointer;
         }
 
@@ -266,15 +266,18 @@
         @media (max-width: 768px) {
             .hero {
                 height: 60vh;
-                padding: 40px 0;
             }
 
-            .profile-img-hero {
+            .hero .profile-img-hero {
                 width: 200px;
                 height: 200px;
+                position: absolute;
+                top: 10px;
+                object-position: center bottom ; /* Ensures top of image is visible */
             }
 
-            .hero h1 { font-size: 48px; }
+            .hero h1 { margin-top: 240px;
+                font-size: 48px; }
             .hero p.job-role { font-size: 18px; }
 
             .content {
@@ -298,6 +301,13 @@
                 margin-top: 30px;
                 padding: 20px 0;
             }
+
+            .iframe-container {
+                width: 50px; /* Smaller size for mobile */
+                height: 50px;
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
@@ -306,9 +316,9 @@
         <div class="iframe-container" id="iframeContainer">
             <div id="clickOverlay" onclick="expandIframe()"></div>
             <iframe class="iframe1" id="myIframe" src="nav_small.png"></iframe>
-            </div>
+        </div>
         <div class="hero">
-            <img src="myimage.jpg" alt="[Your Full Name]" class="profile-img-hero">
+            <img src="myimage.png" alt="[Your Full Name]" class="profile-img-hero">
             <h1>Manshi Singhi</h1>
             <p class="job-role">4th-Year Computer Science and Engineering Student <br> Data Science Specialist, Android Developer, & UI/UX Designer</p>
         </div>
@@ -320,14 +330,13 @@
                     <p class="card-title">Android & AI Mastery</p>
                     <p>I am an experienced Android developer with a strong specialization in data and AI integration. My expertise extends across technologies like Firebase, AI models, and Android Studio, ensuring seamless and efficient implementation of complex applications.</p>
                 </div>
-
                 <div class="card">
                     <p class="card-title">Data Science Proficiency</p>
-                    <p>Beyond Android development, I have a deep passion for data science and Python. I am highly proficient in Python and its vast ecosystem of libraries. Whether it’s building predictive models, performing in-depth data analysis, or optimizing business strategies with AI, I thrive on turning raw data into meaningful insights that drive profitability. From data preprocessing to machine learning deployment, I handle it all with precision and efficiency.</div>
+                    <p>Beyond Android development, I have a deep passion for data science and Python. I am highly proficient in Python and its vast ecosystem of libraries. Whether it’s building predictive models, performing in-depth data analysis, or optimizing business strategies with AI, I thrive on turning raw data into meaningful insights that drive profitability. From data preprocessing to machine learning deployment, I handle it all with precision and efficiency.</p>
+                </div>
             </div>
             <div class="right-column">
                 <h2>Creative Innovation</h2>
-                
                 <div class="card">
                     <p class="card-title">UI/UX Design Brilliance</p>
                     <p>I have a keen eye for design, creating visually appealing and engaging UI/UX designs for websites and mobile apps using Figma. My mastery of Figma allows me to craft intricate animations effortlessly, bringing ideas to life with creativity and precision.</p>
@@ -348,48 +357,20 @@
         // Ensure images load
         document.addEventListener('DOMContentLoaded', () => {
             const imgHero = document.querySelector('.profile-img-hero');
-            const imgContent = document.querySelector('.profile-img'); // Not used in this version, but kept for consistency
             if (imgHero.complete) {
                 imgHero.classList.add('loaded');
             } else {
                 imgHero.addEventListener('load', () => imgHero.classList.add('loaded'));
             }
         });
-    </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let container = document.getElementById("iframeContainer");
-        let iframe = document.getElementById("myIframe");
-        let overlay = document.getElementById("clickOverlay");
-
+        // Iframe expansion logic
         function expandIframe() {
-            container.classList.add("expanded");
-            iframe.src = "navigation/index.html";  // Load full content on expand
-            overlay.remove();
+            const container = document.getElementById('iframeContainer');
+            const iframe = document.getElementById('myIframe');
+            container.classList.add('expanded');
+            iframe.src = 'navigation/index.html';  // Load full content on expand
         }
-
-        // Intersection Observer for handling visibility
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (!container.classList.contains("expanded")) {
-                    if (entry.isIntersecting) {
-                        iframe.src = "nav_small.png"; // Default image when in view but not expanded
-                    } else {
-                        iframe.src = ""; // Remove src when out of view (optional)
-                    }
-                }
-            });
-        }, { threshold: 0.5 }); // Trigger when 50% is visible
-
-        observer.observe(iframe);
-
-        // Attach expand function to overlay
-        if (overlay) {
-            overlay.addEventListener("click", expandIframe);
-        }
-    });
-</script>
-    
+    </script>
 </body>
 </html>
