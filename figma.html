@@ -70,6 +70,15 @@
         .card:nth-child(4) {
             animation-delay: 0.8s;
         }
+        .card:nth-child(5) {
+            animation-delay: 1.0s;
+        }
+        .card:nth-child(6) {
+            animation-delay: 1.2s;
+        }
+        .card:nth-child(7) {
+            animation-delay: 1.4s;
+        }
 
         .card:hover {
             transform: translateY(-5px);
@@ -369,16 +378,24 @@
     <script>
 
         const projectDescriptions = [
+            "This Figma design offers a modern and interactive food catalogue layout, focusing on user engagement and smooth navigation. The minimalist card-based structure provides a clean and organized visual hierarchy, making the content easy to browse. Soft background colors and well-placed imagery enhance the aesthetic appeal. ",
+            "This sleek and modern design showcases the Adidas Run 50s Shoes, a perfect blend of retro aesthetics and contemporary comfort. Its clean layout emphasizes the shoe's design, while the minimalist menu bar offers effortless navigation. The interactive color selection feature allows users to explore different color options of the same shoes, enhancing user engagement.",
             "This Figma design showcases a modern pizza ordering website featuring different pizza varieties. It includes a welcoming homepage, a delicious menu with detailed descriptions, and easy navigation for a smooth user experience.",
             "An eye-catching Figma design that brings Nike's iconic sneakers to life with bold layouts, vibrant colors, and a dynamic showcase of style and performance.",
             " This Figma design showcases an interactive zoom effect, allowing users to hover over specific areas of an image to view a magnified version. The design enhances product visualization by providing a closer look at key details.",
             "A sleek and modern movie booking app interface featuring a movie details screen and a date/time selection screen with an interactive reservation button."
-        ];
+            ,"This bright poster promotes Rajasthan Kulfi & Fast Food, featuring a colorful kulfi slice, ice cream cone, and playful text like Cooling Delights Right Here! The yellow background with subtle patterns creates a warm, inviting look, guiding customers to its location below the flyover."];
         const projects = [
-            { id: 1, title: "Pizza Delight", video: "Media//fig2.mp4", photos: ["Media//fig2_1.png", "Media//fig2_2.png", "Media//fig2_3.png", "Media//fig2_4.png"] },
-            { id: 2, title: "Nike Sneaker Showcase", video: "Media//fig3.mp4", photos: ["Media//fig3_1.png", "Media//fig3_2.png", "Media//fig3_3.png", "Media//fig3_4.png", "Media//fig3_5.png"] }
-            , { id: 3, title: "Interactive Zoom Effect UI Design", video: "Media//fig4.mp4", photos: ["Media//fig4_1.png", "Media//fig4_2.png", "Media//fig4_3.png"] }
-            , { id: 4, title: "Movie Ticket Booking UI", video: "Media//fig1.mp4", photos: ["Media//fig1_1.png", "Media//fig1_2.png", "Media//fig1_3.png", "Media//fig1_4.png"] }
+            { id: 1, title: "Food Catalogue", video: "Media//fig7.mp4", photos: ["Media//fig7_2.png", "Media//fig7_1.png", "Media//fig7_3.png", "Media//fig4_4.png", "Media//fig7_5.png", "Media//fig7_6.png"] },
+            { id: 2, title: "Adidas Shoes", video: "Media//fig6.mp4", photos: ["Media//fig6_1.png", "Media//fig6_2.png", "Media//fig6_3.png"] },
+            
+            { id: 3, title: "Pizza Delight", video: "Media//fig2.mp4", photos: ["Media//fig2_1.png", "Media//fig2_2.png", "Media//fig2_3.png", "Media//fig2_4.png"] },
+            { id: 4, title: "Nike Sneaker Showcase", video: "Media//fig3.mp4", photos: ["Media//fig3_1.png", "Media//fig3_2.png", "Media//fig3_3.png", "Media//fig3_4.png", "Media//fig3_5.png"] }
+            , { id: 5, title: "Interactive Zoom Effect UI Design", video: "Media//fig4.mp4", photos: ["Media//fig4_1.png", "Media//fig4_2.png", "Media//fig4_3.png"] }
+            , { id: 6, title: "Movie Ticket Booking UI", video: "Media//fig1.mp4", photos: ["Media//fig1_1.png", "Media//fig1_2.png", "Media//fig1_3.png", "Media//fig1_4.png"] }
+            ,{ id: 7, title: "Banner Design for Kulfi Shop", video: "", photos: ["Media//fig5.png"] }
+            
+        
         ];
 
         function loadProjects() {
